@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: wattwise-api
+    runtime: python
+    plan: starter
+    buildCommand: python -m compileall server.py
+    startCommand: python server.py
+    healthCheckPath: /api/health
+    disk:
+      name: wattwise-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: WATTWISE_HOST
+        value: 0.0.0.0
+      - key: WATTWISE_DATABASE
+        value: /var/data/wattwise.sqlite3
+      - key: WATTWISE_SECURE_COOKIE
+        value: "1"

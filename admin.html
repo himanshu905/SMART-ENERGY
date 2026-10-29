@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f7f4" />
+    <meta name="description" content="Manage Wattwise customers and review their energy consumption." />
+    <title>Admin — Wattwise</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="auth.css" />
+    <script src="auth.js" defer></script>
+    <script src="admin.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Admin navigation">
+        <a class="brand" href="/admin" aria-label="Wattwise home">
+          <span class="brand-mark" aria-hidden="true">✳</span><span>wattwise</span>
+        </a>
+        <div class="workspace-label">ADMINISTRATION</div>
+        <nav class="navigation">
+          <a class="nav-link active" href="#admin-overview" aria-current="page"><span class="nav-icon" aria-hidden="true">▦</span> Overview</a>
+          <a class="nav-link" href="#customer-list"><span class="nav-icon" aria-hidden="true">♙</span> Customers</a>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="help-card">
+            <span class="help-spark" aria-hidden="true">✳</span>
+            <strong>Admin workspace</strong>
+            <p>Manage customer accounts and review their energy summaries.</p>
+          </div>
+          <div class="profile">
+            <div class="avatar" id="admin-avatar" aria-hidden="true">AD</div>
+            <div class="profile-copy"><strong id="admin-name">Administrator</strong><span>Admin</span></div>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-content" id="admin-overview">
+        <header class="topbar">
+          <div class="breadcrumb"><span>Workspace</span><span aria-hidden="true">/</span><strong>Admin</strong></div>
+          <div class="topbar-actions">
+            <span class="connection"><span class="connection-dot"></span> Admin access</span>
+            <button class="logout-button" type="button" data-logout>Sign out <span aria-hidden="true">↗</span></button>
+          </div>
+        </header>
+
+        <section class="page-heading">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-dot"></span> WATTWISE ADMINISTRATION</p>
+            <h1>Customer workspace <span class="wave" aria-hidden="true">✳</span></h1>
+            <p class="heading-copy">Manage customer accounts and review energy usage across your service.</p>
+          </div>
+        </section>
+
+        <section class="admin-summary metric-grid" aria-label="Customer overview">
+          <article class="metric-card primary-metric">
+            <div class="metric-topline"><span class="metric-icon energy-icon" aria-hidden="true">♙</span><span class="metric-label">CUSTOMER ACCOUNTS</span></div>
+            <div class="metric-value"><span id="customer-count">—</span><small>customers</small></div>
+            <div class="metric-footer">Active accounts managed here</div>
+            <div class="metric-decoration" aria-hidden="true"></div>
+          </article>
+          <article class="metric-card">
+            <div class="metric-topline"><span class="metric-icon cost-icon" aria-hidden="true">ϟ</span><span class="metric-label">RECORDED CONSUMPTION</span></div>
+            <div class="metric-value"><span id="total-usage">—</span><small>kWh</small></div>
+            <div class="metric-footer">Across available customer readings</div>
+          </article>
+          <article class="metric-card">
+            <div class="metric-topline"><span class="metric-icon solar-icon" aria-hidden="true">☼</span><span class="metric-label">SOLAR GENERATED</span></div>
+            <div class="metric-value"><span id="total-solar">—</span><small>kWh</small></div>
+            <div class="metric-footer">Across available customer readings</div>
+          </article>
+          <article class="metric-card">
+            <div class="metric-topline"><span class="metric-icon carbon-icon" aria-hidden="true">₹</span><span class="metric-label">ESTIMATED COST</span></div>
+            <div class="metric-value"><span id="total-cost">—</span><small>INR</small></div>
+            <div class="metric-footer">Across available customer readings</div>
+          </article>
+        </section>
+
+        <section class="admin-content-grid">
+          <article class="panel customer-panel" id="customer-list">
+            <div class="panel-heading">
+              <div><p class="panel-kicker">ACCOUNT ACCESS</p><h2>Customer accounts</h2><p class="panel-subtitle">Each customer can only access their own energy readings.</p></div>
+              <button class="primary-button" type="button" id="show-create">+ Add customer</button>
+            </div>
+            <p class="admin-message" id="admin-message" role="status" hidden></p>
+            <div class="table-wrap">
+              <table class="customer-table">
+                <thead><tr><th>Customer</th><th>Recorded energy</th><th>Est. cost</th><th>Solar</th><th class="actions-heading">Actions</th></tr></thead>
+                <tbody id="customer-rows"><tr><td class="table-empty" colspan="5">Loading customers…</td></tr></tbody>
+              </table>
+            </div>
+            <p class="table-caption">New accounts receive randomized illustrative readings. No live meter is connected.</p>
+          </article>
+
+          <aside class="panel create-panel" id="create-panel">
+            <p class="panel-kicker">ADD A NEW ACCOUNT</p>
+            <h2>Create a customer</h2>
+            <p class="panel-subtitle">The customer can sign in as soon as you create their account.</p>
+            <form class="admin-form" id="create-form">
+              <label for="customer-name">Customer name</label>
+              <input id="customer-name" name="name" type="text" autocomplete="name" maxlength="100" placeholder="e.g. Asha Patel" required />
+              <label for="customer-email">Email address</label>
+              <input id="customer-email" name="email" type="email" autocomplete="email" maxlength="254" placeholder="customer@example.com" required />
+              <label for="customer-password">Temporary password</label>
+              <input id="customer-password" name="password" type="password" autocomplete="new-password" minlength="12" maxlength="128" placeholder="At least 12 characters" required />
+              <p class="form-hint">Share the temporary password securely with the customer.</p>
+              <button class="primary-button create-submit" type="submit" id="create-submit">Create customer account</button>
+            </form>
+          </aside>
+        </section>
+
+        <section class="panel create-panel admin-account-panel" aria-labelledby="create-admin-heading">
+          <p class="panel-kicker">ADMIN ACCESS</p>
+          <h2 id="create-admin-heading">Add another administrator</h2>
+          <p class="panel-subtitle">Create an admin login. Share the temporary password privately.</p>
+          <p class="admin-message" id="admin-account-message" role="status" hidden></p>
+          <form class="admin-form" id="create-admin-form">
+            <label for="new-admin-email">Email address</label>
+            <input id="new-admin-email" name="email" type="email" autocomplete="email" maxlength="254" placeholder="admin@example.com" required />
+            <label for="new-admin-name">Display name</label>
+            <input id="new-admin-name" name="name" type="text" autocomplete="name" maxlength="100" value="Additional Administrator" required />
+            <label for="new-admin-password">Temporary password</label>
+            <input id="new-admin-password" name="password" type="password" autocomplete="new-password" minlength="12" maxlength="128" placeholder="At least 12 characters" required />
+            <p class="form-hint">Use a unique temporary password and send it through a private channel.</p>
+            <button class="primary-button create-submit" type="submit" id="create-admin-submit">Create admin account</button>
+          </form>
+        </section>
+
+        <footer class="page-footer"><span>Admin workspace</span><span>Sample readings are illustrative, not live meter data.</span></footer>
+        <p class="load-error" id="load-error" role="alert" hidden></p>
+      </main>
+    </div>
+
+    <dialog class="account-dialog" id="reset-dialog">
+      <form class="dialog-card" id="reset-form">
+        <button class="dialog-close" type="button" id="close-reset" aria-label="Close dialog">×</button>
+        <p class="panel-kicker">ACCOUNT ACCESS</p>
+        <h2>Reset customer password</h2>
+        <p class="panel-subtitle">The customer's existing sessions will be signed out.</p>
+        <p class="dialog-customer" id="reset-customer-label"></p>
+        <input id="reset-customer-id" name="customerId" type="hidden" />
+        <label for="reset-password">New temporary password</label>
+        <input id="reset-password" name="password" type="password" autocomplete="new-password" minlength="12" maxlength="128" placeholder="At least 12 characters" required />
+        <p class="form-hint">Share the temporary password securely with the customer.</p>
+        <button class="primary-button create-submit" type="submit" id="reset-submit">Reset password</button>
+      </form>
+    </dialog>
+
+    <dialog class="account-dialog" id="readings-dialog">
+      <section class="dialog-card readings-card">
+        <button class="dialog-close" type="button" id="close-readings" aria-label="Close dialog">×</button>
+        <p class="panel-kicker">CUSTOMER ENERGY</p>
+        <h2 id="readings-heading">Customer readings</h2>
+        <p class="panel-subtitle" id="readings-email"></p>
+        <div class="table-wrap readings-table-wrap">
+          <table class="customer-table readings-table">
+            <thead><tr><th>Date</th><th>Energy</th><th>Cost</th><th>Solar</th><th>Carbon</th></tr></thead>
+            <tbody id="reading-rows"></tbody>
+          </table>
+        </div>
+      </section>
+    </dialog>
+  </body>
+</html>

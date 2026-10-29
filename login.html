@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f7f4" />
+    <title>Sign in — Wattwise</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="auth.css" />
+    <script src="login.js" defer></script>
+  </head>
+  <body class="auth-page">
+    <main class="auth-layout">
+      <section class="auth-intro">
+        <a class="brand auth-brand" href="/" aria-label="Wattwise home">
+          <span class="brand-mark" aria-hidden="true">✳</span><span>wattwise</span>
+        </a>
+        <div class="intro-content">
+          <span class="intro-kicker"><span class="connection-dot"></span> A SMARTER HOME STARTS HERE</span>
+          <h1>Make every<br />watt <span>count.</span></h1>
+          <p>Understand your home's energy, discover simple ways to save, and make a difference every day.</p>
+          <div class="intro-bottom">
+            <div class="intro-stat"><strong>Know</strong><span>what your home uses</span></div>
+            <div class="intro-stat"><strong>Find</strong><span>ways to use less</span></div>
+            <div class="intro-stat"><strong>Save</strong><span>more every month</span></div>
+          </div>
+        </div>
+        <span class="intro-orbit orbit-one" aria-hidden="true"></span>
+        <span class="intro-orbit orbit-two" aria-hidden="true"></span>
+      </section>
+
+      <section class="auth-main">
+        <div class="auth-card">
+          <div class="mobile-brand"><span class="brand-mark" aria-hidden="true">✳</span> wattwise</div>
+          <p class="panel-kicker" id="auth-kicker">WELCOME TO WATTWISE</p>
+          <h2 id="auth-heading">Sign in to your account</h2>
+          <p class="auth-subtitle" id="auth-subtitle">Your energy dashboard is just one step away.</p>
+          <div class="role-note" id="login-role-note">
+            <span class="role-note-icon" aria-hidden="true">♧</span>
+            <p><strong>One sign-in, your right dashboard.</strong><br />Admin and customer access are assigned to your account.</p>
+          </div>
+          <form id="login-form" class="auth-form">
+            <label for="email">Email address</label>
+            <input id="email" name="email" type="email" autocomplete="username" placeholder="you@example.com" maxlength="254" required />
+            <div class="password-label">
+              <label for="password">Password</label>
+            </div>
+            <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" maxlength="128" required />
+            <p class="form-message" id="login-message" role="alert" hidden></p>
+            <button class="auth-submit" id="login-submit" type="submit">Sign in <span aria-hidden="true">→</span></button>
+          </form>
+          <form id="setup-form" class="auth-form setup-form" hidden>
+            <p class="setup-explanation">Create both project accounts. Choose different passwords for the admin and customer.</p>
+            <label for="setup-admin-email">Admin account</label>
+            <input id="setup-admin-email" type="email" autocomplete="username" readonly />
+            <label for="setup-admin-password">Admin password</label>
+            <input id="setup-admin-password" name="adminPassword" type="password" autocomplete="new-password" minlength="12" maxlength="128" placeholder="At least 12 characters" required />
+            <label for="setup-admin-confirm">Confirm admin password</label>
+            <input id="setup-admin-confirm" name="adminPasswordConfirm" type="password" autocomplete="new-password" minlength="12" maxlength="128" placeholder="Enter the admin password again" required />
+            <label for="setup-customer-email">Customer account</label>
+            <input id="setup-customer-email" type="email" autocomplete="username" readonly />
+            <label for="setup-customer-password">Customer password</label>
+            <input id="setup-customer-password" name="customerPassword" type="password" autocomplete="new-password" minlength="12" maxlength="128" placeholder="At least 12 characters" required />
+            <label for="setup-customer-confirm">Confirm customer password</label>
+            <input id="setup-customer-confirm" name="customerPasswordConfirm" type="password" autocomplete="new-password" minlength="12" maxlength="128" placeholder="Enter the customer password again" required />
+            <p class="form-message" id="setup-message" role="alert" hidden></p>
+            <button class="auth-submit" id="setup-submit" type="submit">Create accounts <span aria-hidden="true">→</span></button>
+          </form>
+          <p class="auth-footer" id="auth-footer">Need an account? Ask your Wattwise administrator.</p>
+        </div>
+        <span class="auth-privacy"><span aria-hidden="true">♧</span> Your energy data is private to your account.</span>
+      </section>
+    </main>
+  </body>
+</html>
